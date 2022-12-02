@@ -39,16 +39,16 @@ public class GameOfLifeShould
     }
 
     // 2. Any live cell with more than three live neighbours dies, as if by overcrowding.
-    [TestCase("***\n**.\n...\n", "*.*\n*..\n...\n")]
-    [TestCase("**.\n**.\n.*.\n", "**.\n...\n.*.\n")]
+    [TestCase("***\n**.\n...\n", "*.*\n*.*\n...\n")]
+    [TestCase("**.\n**.\n.*.\n", "**.\n..*\n**.\n")]
     public void OvercrowdedCellShouldDie(string input, string expectedResult)
     {
         Assert.AreEqual(expectedResult, game.Process(input));
     }
 
     // 3. Any live cell with two or three live neighbours lives on to the next generation.
-    [TestCase("**.\n*..\n.**\n", "**.\n*..\n.*.\n")]
-    [TestCase("**.\n*..\n...\n", "**.\n*..\n...\n")]
+    [TestCase("**.\n*..\n.**\n", "**.\n*.*\n.*.\n")]
+    [TestCase("**.\n*..\n...\n", "**.\n**.\n...\n")]
     public void CellWithTwoOrThreeFriendsShouldSurvive(string input, string expectedResult)
     {
         Assert.AreEqual(expectedResult, game.Process(input));
