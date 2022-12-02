@@ -20,25 +20,24 @@ public class GameOfLife
         for (var x = 0; x < width; x++)
         for (var y = 0; y < height; y++)
         {
-            if (!IsAlive(x, y))
-                continue;
+            var aliveNeighbors = CountAliveNeighbors(x, y);
 
-            switch (CountAliveNeighbors(x, y))
-            {
-                case < 2:
-                case > 3:
-                    Kill(x, y);
-                    break;
-            }
+            if (IsAlive(x, y) && aliveNeighbors is < 2 or > 3)
+                Kill(x, y);
+            else if (aliveNeighbors == 3)
+                Revive(x, y);
         }
 
         return string.Join('\n', output) + "\n";
     }
 
-    private bool IsAlive(int x, int y) => 
+    private bool IsAlive(int x, int y) =>
         rows[y][x] == '*';
 
-    private void Kill(int x, int y) => 
+    private void Revive(int x, int y) =>
+        output[y] = output[y].Remove(x, 1).Insert(x, "*");
+
+    private void Kill(int x, int y) =>
         output[y] = output[y].Remove(x, 1).Insert(x, ".");
 
     private int CountAliveNeighbors(int x, int y)
