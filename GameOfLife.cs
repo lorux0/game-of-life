@@ -4,6 +4,6 @@ public class GameOfLife
 {
     public string Process(string input)
     {
-        return input;
+        return input.Replace("*", ".");
     }
 }

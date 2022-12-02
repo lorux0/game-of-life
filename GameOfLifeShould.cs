@@ -24,4 +24,22 @@ public class GameOfLifeShould
         
         Assert.AreEqual(input, output);
     }
+
+    [Test]
+    public void CellWithLowAmountOfNeighborsShouldDie()
+    {
+        var input =
+            "...\n" +
+            ".*.\n" +
+            ".*.\n";
+        
+        string output = game.Process(input);
+        
+        string expectedResult =
+            "...\n" +
+            "...\n" +
+            "...\n";
+        
+        Assert.AreEqual(expectedResult, output);
+    }
 }
