@@ -25,14 +25,10 @@ public class GameOfLifeShould
         Assert.AreEqual(input, output);
     }
 
-    [Test]
-    public void CellWithLowAmountOfNeighborsShouldDie()
+    [TestCase("...\n.*.\n.*.\n")]
+    [TestCase(".*.\n...\n.*.\n")]
+    public void CellWithLowAmountOfNeighborsShouldDie(string input)
     {
-        var input =
-            "...\n" +
-            ".*.\n" +
-            ".*.\n";
-        
         string output = game.Process(input);
         
         string expectedResult =
