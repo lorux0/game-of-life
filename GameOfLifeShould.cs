@@ -38,4 +38,22 @@ public class GameOfLifeShould
         
         Assert.AreEqual(expectedResult, output);
     }
+
+    [Test]
+    public void OvercrowdedCellShouldDie()
+    {
+        var input =
+            "***\n" +
+            "**.\n" +
+            "...\n";
+        
+        string output = game.Process(input);
+        
+        string expectedResult =
+            "*.*\n" +
+            "*..\n" +
+            "...\n";
+        
+        Assert.AreEqual(expectedResult, output);
+    }
 }
