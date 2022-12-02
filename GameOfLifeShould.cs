@@ -53,4 +53,21 @@ public class GameOfLifeShould
     {
         Assert.AreEqual(expectedResult, game.Process(input));
     }
+    
+    // 4. Any dead cell with exactly three live neighbours becomes a live cell.
+    [Test]
+    public void OvercrowdedDeadCellShouldResurrect()
+    {
+        var input =
+            ".*.\n" +
+            "**.\n" +
+            "...\n";
+        
+        string expectedResult =
+            "**.\n" +
+            "**.\n" +
+            "...\n";
+        
+        Assert.AreEqual(expectedResult, game.Process(input));
+    }
 }
