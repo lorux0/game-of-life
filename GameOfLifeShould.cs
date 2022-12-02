@@ -39,21 +39,10 @@ public class GameOfLifeShould
         Assert.AreEqual(expectedResult, output);
     }
 
-    [Test]
-    public void OvercrowdedCellShouldDie()
+    [TestCase("***\n**.\n...\n", "*.*\n*..\n...\n")]
+    [TestCase("**.\n**.\n.*.\n", "**.\n...\n.*.\n")]
+    public void OvercrowdedCellShouldDie(string input, string expectedResult)
     {
-        var input =
-            "***\n" +
-            "**.\n" +
-            "...\n";
-        
-        string output = game.Process(input);
-        
-        string expectedResult =
-            "*.*\n" +
-            "*..\n" +
-            "...\n";
-        
-        Assert.AreEqual(expectedResult, output);
+        Assert.AreEqual(expectedResult, game.Process(input));
     }
 }

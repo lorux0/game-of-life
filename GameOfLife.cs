@@ -17,43 +17,51 @@ public class GameOfLife
         width = rows[0].Length;
         height = rows.Length;
 
-        for (var w = 0; w < width; w++)
+        for (var x = 0; x < width; x++)
+        for (var y = 0; y < height; y++)
         {
-            for (var h = 0; h < height; h++)
+            if (!IsAlive(x, y))
+                continue;
+
+            switch (CountAliveNeighbors(x, y))
             {
-                var currentCell = rows[h][w];
-                var isAlive = currentCell == '*';
-
-                if (isAlive)
-                {
-                    var aliveNeighbors = 0;
-                    
-                    if (IsCellAlive(w - 1, h - 1))
-                        aliveNeighbors++;
-                    if (IsCellAlive(w, h - 1))
-                        aliveNeighbors++;
-                    if (IsCellAlive(w + 1, h - 1))
-                        aliveNeighbors++;
-                    if (IsCellAlive(w - 1, h))
-                        aliveNeighbors++;
-                    if (IsCellAlive(w + 1, h))
-                        aliveNeighbors++;
-                    if (IsCellAlive(w - 1, h + 1))
-                        aliveNeighbors++;
-                    if (IsCellAlive(w, h + 1))
-                        aliveNeighbors++;
-                    if (IsCellAlive(w + 1, h + 1))
-                        aliveNeighbors++;
-
-                    if (aliveNeighbors < 2)
-                        output[h] = output[h].Remove(w, 1).Insert(w, ".");
-                    if (aliveNeighbors > 3)
-                        output[h] = output[h].Remove(w, 1).Insert(w, ".");
-                }
+                case < 2:
+                case > 3:
+                    Kill(x, y);
+                    break;
             }
         }
 
         return string.Join('\n', output) + "\n";
+    }
+
+    private bool IsAlive(int x, int y) => 
+        rows[y][x] == '*';
+
+    private void Kill(int x, int y) => 
+        output[y] = output[y].Remove(x, 1).Insert(x, ".");
+
+    private int CountAliveNeighbors(int x, int y)
+    {
+        var aliveNeighbors = 0;
+
+        if (IsCellAlive(x - 1, y - 1))
+            aliveNeighbors++;
+        if (IsCellAlive(x, y - 1))
+            aliveNeighbors++;
+        if (IsCellAlive(x + 1, y - 1))
+            aliveNeighbors++;
+        if (IsCellAlive(x - 1, y))
+            aliveNeighbors++;
+        if (IsCellAlive(x + 1, y))
+            aliveNeighbors++;
+        if (IsCellAlive(x - 1, y + 1))
+            aliveNeighbors++;
+        if (IsCellAlive(x, y + 1))
+            aliveNeighbors++;
+        if (IsCellAlive(x + 1, y + 1))
+            aliveNeighbors++;
+        return aliveNeighbors;
     }
 
     private bool IsCellAlive(int x, int y)
